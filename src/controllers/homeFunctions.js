@@ -20,6 +20,20 @@ const transporter = nodemailer.createTransport({
         pass: process.env.password
     }
 });
+const Email = require('email-templates');
+const email = new Email({
+    message: {
+        from: 'yr16666@gmail.com'
+    },
+    send: true,
+    transport: transporter,
+    views: {
+        options: {
+            extension: 'hbs'
+        }
+    }
+});
+
 // ========== Setting Up Middlewares ============= //
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -36,17 +50,21 @@ module.exports = {
     },
 
     getEmail: (req, res) => {
-        const mailOptions = {
-            from: process.env.username,
-            to: 'yogesh.rathod@loylty.in',
-            subject: 'Subject of your email',
-            html: '<p>Your html here</p>'
-        };
-
-        transporter.sendMail(mailOptions, function(err, info) {
-            if (err) console.log(err);
-            else res.send(info);
-        });
+        email
+            .send({
+                template: path.join(__dirname + '/../templates/', 'email'),
+                message: {
+                    to: 'yogesh.rathod@loylty.in'
+                },
+                locals: {
+                    name: 'Yogesh',
+                    position: 'Software Developer'
+                }
+            })
+            .then(response => {
+                res.send(response.originalMessage);
+            })
+            .catch(console.error);
     },
 
     pdfDownload: (req, res) => {
