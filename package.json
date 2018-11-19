@@ -21,10 +21,13 @@
     "express": "4.16.2",
     "express-session": "^1.15.6",
     "express-validator": "^5.0.2",
+    "handlebars": "^4.0.12",
     "helmet": "3.9.0",
+    "html-pdf": "^2.2.0",
     "if-env": "^1.0.0",
     "mongoose": "4.13.7",
     "morgan": "1.9.0",
+    "nodemailer": "^4.6.8",
     "passport": "0.4.0",
     "passport-github": "^1.1.0",
     "passport-google-oauth": "1.0.0",
@@ -32,6 +35,6 @@
     "passport-oauth2": "1.4.0"
   },
   "devDependencies": {
-    "nodemon": "^1.13.3"
+    "nodemon": "^1.10.0"
   }
 }
